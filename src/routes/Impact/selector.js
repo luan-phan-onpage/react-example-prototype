@@ -1,32 +1,32 @@
 import { createSelector } from 'reselect'
 
-const getGlobalState = (state) => {
+const getImpact = (state) => {
     console.log(state);
     return state.get('impact')
 };
 
 const getCurrentUserName = createSelector(
-    getGlobalState,
+    getImpact,
     (globalState) => globalState.getIn(['userData', 'name'])
 )
 
 const getLoadingState = createSelector(
-    getGlobalState,
+    getImpact,
     (globalState) => globalState.get('loading')
 )
 
 const getErrorState = createSelector(
-    getGlobalState,
+    getImpact,
     (globalState) => globalState.get('error')
 )
 
 const getReposList = createSelector(
-    getGlobalState,
+    getImpact,
     (globalState) => globalState.getIn(['userData', 'reposList'])
 )
 
 export {
-    getGlobalState,
+    getImpact,
     getLoadingState,
     getErrorState,
     getReposList,

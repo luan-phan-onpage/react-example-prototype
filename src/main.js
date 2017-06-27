@@ -1,22 +1,38 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { browserHistory, applyRouterMiddleware, Router } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux';
 import createStore from './createStore'
 import './main.scss'
+
+// Import selector for `syncHistoryWithStore`
+import {makeSelectLocationState} from './selectors';
 
 // Store Initialization
 // ------------------------------------
 const store = createStore(window.__INITIAL_STATE__)
-
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: makeSelectLocationState(),
+});
 // Render Setup
 // ------------------------------------
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const App = require('./App').default
   const routes = require('./routes/index').default(store)
 
   ReactDOM.render(
-    <App store={store} routes={routes} />,
+    <Provider store={store}>
+      <Router
+          history={history}
+          routes={routes}
+          render={
+            // Scroll to top when going to a new page, imitating default browser
+            // behaviour
+            applyRouterMiddleware(useScroll())
+          }
+        />
+    </Provider>,
     MOUNT_NODE
   )
 }
