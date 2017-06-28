@@ -25,7 +25,7 @@ export function* getRepos() {
 }
 
 export function* getGitHubData() {
-    const watcher = yield takeLatest(LOAD_REPOS, getRepos);
+    const watcher = yield* takeLatest(LOAD_REPOS, getRepos);
     yield take(LOCATION_CHANGE);
     yield cancel(watcher);
 }
