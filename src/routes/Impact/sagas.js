@@ -1,4 +1,5 @@
 import { take, call, put, select, cancel, takeLatest } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     reposLoaded,
     reposLoadingError
@@ -13,6 +14,7 @@ import {
 
 export function* getRepos() {
     const username = yield select(getCurrentUserName());
+    console.log(username);
     const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
     try {
         const repos = yield call(request, requestURL);
@@ -23,7 +25,9 @@ export function* getRepos() {
 }
 
 export function* getGitHubData() {
-    yield takeLatest(LOAD_REPOS, getRepos);
+    const watcher = yield takeLatest(LOAD_REPOS, getRepos);
+    yield take(LOCATION_CHANGE);
+    yield cancel(watcher);
 }
 
 // Bootstrap sagas

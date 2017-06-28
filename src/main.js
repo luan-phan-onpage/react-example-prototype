@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import createStore from './createStore'
 import createRoutes from './routes';
+import App from './App/App'
 import './main.scss'
 
 // Import selector for `syncHistoryWithStore`
@@ -24,6 +25,7 @@ const MOUNT_NODE = document.getElementById('root')
 let render = () => {
   // Set up the router, wrapping all Routes in the App component
   const rootRoute = {
+    component: App,
     childRoutes: createRoutes(store)
   };
 

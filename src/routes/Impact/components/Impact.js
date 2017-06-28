@@ -1,10 +1,12 @@
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import Repos from './Repos'
 
 class Impact extends React.PureComponent {
+  constructor() {
+    super();
+  }
   componentDidMount() {
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmit();
@@ -20,7 +22,7 @@ class Impact extends React.PureComponent {
     return (
       <div >
           <form onSubmit={this.props.onSubmit}>
-            <Input
+            <input
                   id="username"
                   type="text"
                   placeholder="mxstbr"

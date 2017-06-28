@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Repos = ({loading, error, repos}) => {
+export function Repos({loading, error, repos}) {
   if (loading) {
     return <p>Loading...</p>;
   } 
@@ -12,6 +12,7 @@ const Repos = ({loading, error, repos}) => {
   if (repos != false) {
     return <p>Repos List...</p>
   }
+  return <p>List of Repos </p>
 }
 Repos.propTypes = {
   loading: PropTypes.bool,

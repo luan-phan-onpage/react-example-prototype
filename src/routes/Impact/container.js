@@ -12,7 +12,7 @@ import {
     getCurrentUserName
 } from './selectors'
 
-import Impact from './Components/Impact'
+import Impact from './components/Impact'
 
 const mapDispatchToProps= (dispatch) => {
     return {
@@ -26,13 +26,11 @@ const mapDispatchToProps= (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
-    return createStructuredSelector({
-        repos : getReposList(),
-        loading: getLoadingState(),
-        error: getErrorState(),
-        name: getCurrentUserName()
-    })
+    return {
+        repos : getReposList(state),
+        loading: getLoadingState(state),
+        error: getErrorState(state),
+        name: getCurrentUserName(state)
+    }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Impact)

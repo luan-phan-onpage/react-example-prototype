@@ -1,17 +1,17 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import PropTypes from 'prop-types'
-import './PageLayout.scss'
+import './App.scss'
 
-export const PageLayout = ({ children }) => (
+export const App = (props) => (
   <div>
     <div className='page-layout__viewport'>
-      {children}
+      {React.Children.toArray(props.children)}
     </div>
   </div>
 )
-PageLayout.propTypes = {
+App.propTypes = {
   children: PropTypes.node,
 }
 
-export default PageLayout
+export default App
