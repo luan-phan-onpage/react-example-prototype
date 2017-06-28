@@ -1,34 +1,35 @@
 import { getAsyncInjectors } from '../../utils/asyncInjectors';
 
+const errorLoading = (err) => {
+  console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
+};
+
+const loadModule = (cb) => (componentModule) => {
+  cb(null, componentModule.default);
+};
+
 export default (store) => {
   // create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store);
-  console.log(store);
   return {
-      path: '/impact',
+      path: '/',
+      name: 'impact',
       getComponent(nextState, cb) {
-         
-           /*  Webpack - use 'require.ensure' to create a split point
-                and embed an async module loader (jsonp) when bundling   */
-            require.ensure([], (require) => {
+          /*  Webpack - use 'require.ensure' to create a split point
+              and embed an async module loader (jsonp) when bundling   */
+          require.ensure([], (require) => {
             /*  Webpack - use require callback to define
                 dependencies for bundling   */
-                 console.log('Impact');
-            const saga = require('./sagas')
-            const Impact = require('./container')
-            const reducer = require('./reducer')
-            
-            console.log(reducer);
-
-            /*  Add the reducer to the store on key 'impact'  */
-            injectReducer('impact', reducer)
-            injectSagas(sagas);
-
+            const containers = require('./container').default
+            const reducer = require('./reducer').default
+            const sagas = require('./sagas').default
+            injectReducer('impact', reducer )
+            injectSagas(sagas)
             /*  Return getComponent   */
-            cb(null, Impact)
+            cb(null, containers)
 
-            /* Webpack named bundle   */
-            }, 'impact')
+          /* Webpack named bundle   */
+          }, 'impact')
       }
     }
 }

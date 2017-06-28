@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { browserHistory, applyRouterMiddleware, Router } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux';
+import { useScroll } from 'react-router-scroll';
 import createStore from './createStore'
+import createRoutes from './routes';
 import './main.scss'
 
 // Import selector for `syncHistoryWithStore`
@@ -19,13 +22,16 @@ const history = syncHistoryWithStore(browserHistory, store, {
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const routes = require('./routes/index').default(store)
+  // Set up the router, wrapping all Routes in the App component
+  const rootRoute = {
+    childRoutes: createRoutes(store)
+  };
 
   ReactDOM.render(
     <Provider store={store}>
       <Router
           history={history}
-          routes={routes}
+          routes={rootRoute}
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour
@@ -59,7 +65,6 @@ if (__DEV__) {
 
     // Setup hot module replacement
     module.hot.accept([
-      './App',
       './routes/index',
     ], () =>
       setImmediate(() => {

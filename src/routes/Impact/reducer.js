@@ -9,6 +9,10 @@ import {
   LOAD_REPOS_FAIL
 } from './constant'
 
+import {
+  getImpact
+} from './selectors'
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
@@ -33,6 +37,5 @@ const initialState = fromJS({
 console.log(initialState)
 export default (state = initialState, action) => {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }

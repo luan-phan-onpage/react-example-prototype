@@ -1,9 +1,10 @@
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import Repos from './Repos'
 
-class Impact extends React.Component {
+class Impact extends React.PureComponent {
   componentDidMount() {
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmit();

@@ -5,14 +5,14 @@ import {
    loadRepos 
 } from './actions'
 import { 
-    getGlobalState,
+    getImpact,
     getLoadingState,
     getErrorState,
     getReposList,
     getCurrentUserName
-} from './selector'
+} from './selectors'
 
-import Impact from './components/Impact'
+import Impact from './Components/Impact'
 
 const mapDispatchToProps= (dispatch) => {
     return {
@@ -25,11 +25,14 @@ const mapDispatchToProps= (dispatch) => {
     
 }
 
-const mapStateToProps =  createStructuredSelector({
-  repos : getReposList(),
-  loading: getLoadingState(),
-  error: getErrorState(),
-  name: getCurrentUserName()
-})
+const mapStateToProps = (state) => {
+    console.log(state);
+    return createStructuredSelector({
+        repos : getReposList(),
+        loading: getLoadingState(),
+        error: getErrorState(),
+        name: getCurrentUserName()
+    })
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Impact)

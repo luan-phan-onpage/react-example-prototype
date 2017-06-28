@@ -3,11 +3,13 @@ import {
     reposLoaded,
     reposLoadingError
 } from './actions'
-
+import {
+    LOAD_REPOS
+} from './constant'
 import request from '../../utils/request';
 import {
     getCurrentUserName
-} from './selector'
+} from './selectors'
 
 export function* getRepos() {
     const username = yield select(getCurrentUserName());

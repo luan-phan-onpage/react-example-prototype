@@ -28,15 +28,14 @@ const createStore = (initialState = {}) => {
   // ======================================================
   const store = createReduxStore(
     makeRootReducer(),
-    fromJS(initialState),
     composeEnhancers(
       applyMiddleware(...middleware),
       ...enhancers
     )
   )
-  store.asyncReducers = {}
-  // run redux-saga
+ // run redux-saga
   store.runSaga = sagaMiddleware.run;
+  store.asyncReducers = {}
  if (module.hot) {
     module.hot.accept('./reducers', () => {
       import('./reducers').then((reducerModule) => {

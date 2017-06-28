@@ -2,10 +2,10 @@
 import CoreLayout from '../layouts/PageLayout/PageLayout'
 import Impact from './Impact'
 
-export const createRoutes = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : Impact(store)
-})
+export const createRoutes = (store) => {
+  return [
+    Impact(store)
+  ]
+}
 
 export default createRoutes
