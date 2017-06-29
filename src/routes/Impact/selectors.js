@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-const getImpact = (state) => state.get('impact')
+const getImpact = state => state.get('impact')
 
 const getCurrentUserName = createSelector(
     getImpact,

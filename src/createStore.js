@@ -28,6 +28,7 @@ const createStore = (initialState = {}) => {
   // ======================================================
   const store = createReduxStore(
     makeRootReducer(),
+    fromJS(initialState),
     composeEnhancers(
       applyMiddleware(...middleware),
       ...enhancers

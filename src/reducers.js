@@ -22,7 +22,7 @@ function routeReducer(state = routeInitialState, action) {
   }
 }
 
-export const makeRootReducer = (asyncReducers) => {
+const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     routes: routeReducer,
     ...asyncReducers

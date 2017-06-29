@@ -15,21 +15,38 @@ export default (store) => {
       path: '/',
       name: 'impact',
       getComponent(nextState, cb) {
-          /*  Webpack - use 'require.ensure' to create a split point
-              and embed an async module loader (jsonp) when bundling   */
-          require.ensure([], (require) => {
-            /*  Webpack - use require callback to define
-                dependencies for bundling   */
-            const containers = require('./container').default
-            const reducer = require('./reducer').default
-            const sagas = require('./sagas').default
-            injectReducer('impact', reducer )
-            injectSagas(sagas)
-            /*  Return getComponent   */
-            cb(null, containers)
 
-          /* Webpack named bundle   */
-          }, 'impact')
+        const importModules = Promise.all([
+            import('./reducer'),
+            import('./sagas'),
+            import('./container')
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('impact', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+        
+          // /*  Webpack - use 'require.ensure' to create a split point
+          //     and embed an async module loader (jsonp) when bundling   */
+          // require.ensure([], (require) => {
+          //   /*  Webpack - use require callback to define
+          //       dependencies for bundling   */
+          //   const containers = require('./container').default
+          //   const reducer = require('./reducer').default
+          //   const sagas = require('./sagas').default
+          //   injectReducer('impact', reducer )
+          //   injectSagas(sagas)
+          //   /*  Return getComponent   */
+          //   cb(null, containers)
+
+          // /* Webpack named bundle   */
+          // }, 'impact')
       }
     }
 }

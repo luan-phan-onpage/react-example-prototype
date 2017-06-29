@@ -16,16 +16,16 @@ import Impact from './components/Impact'
 
 const mapDispatchToProps= (dispatch) => {
     return {
-        changeUserName: (e) => dispatch(changeUserName(e.target.value)),
+        onChangeUsername: (e) => dispatch(changeUserName(e.target.value)),
         onSubmit: (e) => {
-            e.preventDefault();
+            if (e !== undefined && e.preventDefault) e.preventDefault();
             dispatch(loadRepos());
         }
     }
     
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         repos : getReposList(state),
         loading: getLoadingState(state),

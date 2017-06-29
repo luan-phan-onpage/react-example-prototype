@@ -24,8 +24,15 @@ export function* getRepos() {
     }
 }
 
+function *log(watcher) {
+  console.log(watcher)
+  return watcher
+}
+
 export function* getGitHubData() {
-    const watcher = yield* takeLatest(LOAD_REPOS, getRepos);
+    console.log(getCurrentUserName());
+    const watcher = yield takeLatest(LOAD_REPOS, getRepos);
+    yield log(watcher);
     yield take(LOCATION_CHANGE);
     yield cancel(watcher);
 }

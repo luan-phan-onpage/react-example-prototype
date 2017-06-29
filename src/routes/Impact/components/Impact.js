@@ -8,7 +8,7 @@ class Impact extends React.PureComponent {
     super();
   }
   componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
+    if (this.props.name.trim().length > 0) {
       this.props.onSubmit();
     }
   }
@@ -23,10 +23,10 @@ class Impact extends React.PureComponent {
       <div >
           <form onSubmit={this.props.onSubmit}>
             <input
-                  id="username"
+                  id="name"
                   type="text"
                   placeholder="mxstbr"
-                  value={this.props.username}
+                  value={this.props.name}
                   onChange={this.props.onChangeUsername}
                 />
           </form>
@@ -38,7 +38,7 @@ class Impact extends React.PureComponent {
 
 Impact.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  changeUserName: PropTypes.func.isRequired,
+  onChangeUsername: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   error:  PropTypes.oneOfType([
     PropTypes.bool,
